@@ -1,4 +1,4 @@
-# Campus Notification Platform - REST API Design
+# Campus Notification Platform -
 
 ## Overview
 A campus notification platform for sending and managing real-time notifications to students, faculty, and staff.
