@@ -5,11 +5,10 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Priority weights for notification types
+
 const PRIORITY_WEIGHTS = {
   'placement': 100,
   'result': 50,
@@ -18,6 +17,7 @@ const PRIORITY_WEIGHTS = {
   'urgent': 75,
   'academic': 30
 };
+
 
 /**
  * Calculate priority score for a notification based on type weight and recency.
@@ -30,7 +30,7 @@ function calculatePriorityScore(notification) {
   // Get base weight from priority mapping
   const baseWeight = PRIORITY_WEIGHTS[notifType] || 5;
   
-  // Calculate recency bonus
+  // Calculate bonus
   let recencyBonus = 0;
   const timestampStr = notification.Timestamp;
   
@@ -64,7 +64,6 @@ function calculatePriorityScore(notification) {
 
 
 // Get the top N most important unread notifications based on priority score.
-
 function getPriorityInbox(notifications, topN = 10) {
   // Filter for unread notifications only
   const unreadNotifications = notifications.filter(
@@ -76,8 +75,8 @@ function getPriorityInbox(notifications, topN = 10) {
     notification: notif,
     priorityScore: calculatePriorityScore(notif)
   }));
-  
-  // Sort by priority score (descending)
+
+  // js sorting
   scoredNotifications.sort((a, b) => b.priorityScore - a.priorityScore);
   
   // Extract top N notifications
@@ -89,7 +88,6 @@ function getPriorityInbox(notifications, topN = 10) {
 
 
 // Fetch notifications from the external API
-
 async function fetchNotifications() {
   try {
     console.log('Fetching notifications from external API...');
@@ -107,6 +105,7 @@ async function fetchNotifications() {
       console.error('Response status:', error.response.status);
       console.error('Response data:', error.response.data);
     }
+    
     // Return mock data for testing if API fails
     console.log('Using mock data for testing...');
     return [
@@ -151,6 +150,7 @@ app.get('/api/notifications', async (req, res) => {
     });
   }
 });
+
 
 // API Endpoint: Get priority inbox (top N unread notifications)
 app.get('/api/notifications/priority', async (req, res) => {
