@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const PriorityInbox = ({ topN = 10 }) => {
+  
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,12 +29,12 @@ const PriorityInbox = ({ topN = 10 }) => {
 
   const getTypeColor = (type) => {
     const colors = {
-      'placement': '#10b981', // green
-      'result': '#3b82f6', // blue
-      'event': '#f59e0b', // amber
-      'urgent': '#ef4444', // red
-      'academic': '#8b5cf6', // purple
-      'general': '#6b7280' // gray
+      'placement': '#10b981', 
+      'result': '#3b82f6', 
+      'event': '#f59e0b', 
+      'urgent': '#ef4444', 
+      'academic': '#8b5cf6', 
+      'general': '#6b7280' 
     };
     return colors[type?.toLowerCase()] || '#6b7280';
   };
@@ -44,6 +45,7 @@ const PriorityInbox = ({ topN = 10 }) => {
     return date.toLocaleString();
   };
 
+  
   if (loading) {
     return (
       <div className="priority-inbox-container">
