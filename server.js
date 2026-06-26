@@ -19,15 +19,14 @@ const PRIORITY_WEIGHTS = {
 };
 
 
-/**
- * Calculate priority score for a notification based on type weight and recency.
- * Priority Score = Type Weight + Recency Bonus
+/*
+  Calculate priority score for a notification based on type weight and recency.
+  Priority Score = Type Weight + Recency Bonus
  */
+
 function calculatePriorityScore(notification) {
-  // Get notification type (case-insensitive)
-  const notifType = (notification.Type || 'general').toLowerCase();
   
-  // Get base weight from priority mapping
+  const notifType = (notification.Type || 'general').toLowerCase();
   const baseWeight = PRIORITY_WEIGHTS[notifType] || 5;
   
   // Calculate bonus
@@ -58,7 +57,6 @@ function calculatePriorityScore(notification) {
     }
   }
   
-  // Final priority score
   return baseWeight + recencyBonus;
 }
 
